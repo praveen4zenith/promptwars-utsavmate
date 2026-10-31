@@ -30,3 +30,8 @@
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# HTML reports & external drafts
+html-reports/
+*.html
+
