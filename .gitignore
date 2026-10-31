@@ -17,9 +17,12 @@
 .DS_Store
 *.pem
 
-# Local env files
+# Local env files (NEVER commit secrets or API keys)
+.env.local
 .env*.local
 .env
+.env.production.local
+.env.development.local
 
 # Vercel
 .vercel
