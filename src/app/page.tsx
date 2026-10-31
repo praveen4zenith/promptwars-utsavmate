@@ -370,6 +370,12 @@ export default function Home() {
 
                   {/* Badges row */}
                   <div className="flex flex-wrap items-center gap-4 mt-4 text-xs text-amber-200/90 font-medium">
+                    {currentPlan.eventDetails.hostName && (
+                      <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/20 text-white font-bold">
+                        <span>🎉</span>
+                        Celebrant/Host: {currentPlan.eventDetails.hostName}
+                      </span>
+                    )}
                     <span className="flex items-center gap-1.5">
                       <MapPin className="w-4 h-4 text-amber-300" />
                       {currentPlan.eventDetails.city}

@@ -9,6 +9,7 @@ export const DEMO_PRESET_WEDDING: EventPlan = {
   eventDetails: {
     eventType: "wedding",
     eventName: "Ananya & Rohan's Royal Heritage Wedding",
+    hostName: "Ananya & Rohan",
     city: "Jaipur, Rajasthan",
     date: "2026-12-18",
     guestCount: 350,
@@ -283,6 +284,7 @@ export const DEMO_PRESET_BIRTHDAY: EventPlan = {
   eventDetails: {
     eventType: "birthday",
     eventName: "Aarav's 1st Birthday & Annaprashan Ceremony",
+    hostName: "Aarav",
     city: "Bengaluru, Karnataka",
     date: "2026-11-22",
     guestCount: 80,
@@ -505,6 +507,7 @@ export const DEMO_PRESET_COMMUNITY: EventPlan = {
   eventDetails: {
     eventType: "community",
     eventName: "Deepotsav Community Diwali Milan & Cultural Night",
+    hostName: "Gokuldham Society & Residents",
     city: "Mumbai, Maharashtra",
     date: "2026-11-08",
     guestCount: 200,

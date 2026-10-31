@@ -91,7 +91,15 @@ export const PrintSummary: React.FC<PrintSummaryProps> = ({ plan, onClose }) => 
           </div>
 
           {/* Quick Details Badges */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-amber-50/60 p-4 rounded-2xl border border-amber-200/80 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 bg-amber-50/60 p-4 rounded-2xl border border-amber-200/80 text-xs">
+            <div>
+              <span className="text-slate-500 uppercase tracking-wider text-2xs block">
+                Celebrant / Host
+              </span>
+              <strong className="text-slate-900 font-bold">
+                {plan.eventDetails.hostName || "N/A"}
+              </strong>
+            </div>
             <div>
               <span className="text-slate-500 uppercase tracking-wider text-2xs block">
                 Location

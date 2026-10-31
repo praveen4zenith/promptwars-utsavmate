@@ -88,6 +88,7 @@ export interface ContingencyItem {
 export interface EventFormData {
   eventType: EventType;
   eventName: string;
+  hostName: string; // Celebrant, Couple, or Host Name(s)
   city: string;
   date: string;
   guestCount: number;

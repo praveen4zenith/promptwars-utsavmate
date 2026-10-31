@@ -11,6 +11,10 @@ export function validateEventForm(data: Partial<EventFormData>): {
     errors.eventName = "Event celebration name is required.";
   }
 
+  if (!data.hostName || data.hostName.trim().length === 0) {
+    errors.hostName = "Celebrant / Host name is required.";
+  }
+
   if (!data.city || data.city.trim().length === 0) {
     errors.city = "City / Location is required.";
   }
@@ -41,7 +45,8 @@ describe("Event Form Input Validation", () => {
   it("passes with valid complete form data", () => {
     const validData: EventFormData = {
       eventType: "wedding",
-      eventName: "Priya & Amit Sangeet Gala",
+      eventName: "Royal Vivah Celebration",
+      hostName: "Priya & Amit",
       city: "New Delhi",
       date: "2026-11-20",
       guestCount: 250,

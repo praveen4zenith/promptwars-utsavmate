@@ -53,9 +53,22 @@ export function generateDynamicFallbackPlan(formData: EventFormData): EventPlan 
     formData.eventType
   );
 
+  const celebrantOrHost = formData.hostName?.trim() || "The Celebrant";
+
+  // Replace any preset names (Aarav, Ananya, Rohan, etc.) with user's host/celebrant
+  const personalizeText = (text: string): string => {
+    return text
+      .replace(/Aarav's/g, `${celebrantOrHost}'s`)
+      .replace(/Aarav/g, celebrantOrHost)
+      .replace(/Ananya & Rohan's/g, `${celebrantOrHost}'s`)
+      .replace(/Ananya & Rohan/g, celebrantOrHost);
+  };
+
   const fallbackTasks: TaskItem[] = basePreset.tasks.map((task, index) => ({
     ...task,
     id: `task-${Date.now()}-${index}`,
+    title: personalizeText(task.title),
+    notes: task.notes ? personalizeText(task.notes) : undefined,
     completed: index === 0, // Mark first as done
     dueDate: formData.date ? `${formData.date}` : undefined,
   }));
@@ -64,6 +77,9 @@ export function generateDynamicFallbackPlan(formData: EventFormData): EventPlan 
     (item, index) => ({
       ...item,
       id: `sched-${Date.now()}-${index}`,
+      activity: personalizeText(item.activity),
+      description: personalizeText(item.description),
+      responsiblePerson: personalizeText(item.responsiblePerson),
     })
   );
 
@@ -74,15 +90,15 @@ export function generateDynamicFallbackPlan(formData: EventFormData): EventPlan 
     isDemoPlan: true,
     eventDetails: formData,
     concept: {
-      tagline: `A Glorious ${formData.theme || "Celebration"} in ${formData.city}`,
+      tagline: `A Glorious ${formData.theme || "Celebration"} for ${celebrantOrHost}`,
       themeDescription: `A masterfully planned ${formData.eventType} in ${
         formData.city
-      } welcoming ${formData.guestCount} cherished guests with a total budget of ${formatINR(
+      } celebrating ${celebrantOrHost} and welcoming ${formData.guestCount} cherished guests with a total budget of ${formatINR(
         formData.totalBudget
       )}. Designed around the theme "${formData.theme || "Traditional Elegance"}" prioritizing ${formData.priorities.join(", ") || "Hospitality & Joy"}.`,
       colorPalette: basePreset.concept.colorPalette,
       keyHighlights: [
-        `Curated celebration for ${formData.guestCount} guests in ${formData.city}`,
+        `Curated celebration for ${celebrantOrHost} and ${formData.guestCount} guests in ${formData.city}`,
         `Catering tailored to: ${formData.dietaryNeeds.join(", ") || "Grand Indian Feast"}`,
         `Themed decor: ${formData.theme || "Traditional Festive Accents"}`,
         `Special provisions: ${formData.specialRequirements || "Standard celebration amenities"}`,
@@ -147,6 +163,7 @@ Generate a comprehensive, culturally rich, realistic event plan in STRICT JSON f
 EVENT SPECIFICATIONS:
 - Event Type: ${formData.eventType}
 - Event Title: ${formData.eventName}
+- Celebrant / Couple / Host Name(s): ${formData.hostName || "Host"}
 - City / Location: ${formData.city}
 - Planned Date: ${formData.date}
 - Guest Count: ${formData.guestCount}
