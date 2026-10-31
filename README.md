@@ -1,6 +1,7 @@
 # 🪔 UtsavMate AI (उत्सव मेट)
 > **Full-Stack Indian Celebration & Event Planner**  
-> Built for PromptWars Virtual Challenge 05: Celebration & Event Planner.
+> Built for PromptWars Virtual Challenge 05: Celebration & Event Planner.  
+> **Repository**: [https://github.com/praveen4zenith/promptwars-utsavmate](https://github.com/praveen4zenith/promptwars-utsavmate)
 
 UtsavMate AI helps hosts, families, and community organizers plan Indian weddings, milestone birthdays, and community festivals with deterministic INR budgets, personalized cultural themes, preparation roadmaps, vendor interview checklists, and hour-by-hour day-of itineraries.
 
@@ -10,6 +11,7 @@ UtsavMate AI helps hosts, families, and community organizers plan Indian wedding
 
 1. **Cultural Indian Celebration Engine**:
    - Specialized planning for **Weddings & Vivah** (Baraat, Varmala, Vedic Pheras), **Milestone Birthdays** (1st Birthday / Annaprashan, 50th Jubilee), **Community Festivals** (Deepotsav, Garba, Society Utsav), and **Sangeet & Mehendi nights**.
+   - Dedicated **Celebrant / Couple / Host Name(s)** field: Event titles can now be creative and independent (e.g., *"Explore Roblox World"* or *"Royal Starlit Symphony"*) while the celebrant/couple (e.g., *"Kabir"* or *"Priya & Amit"*) is uniquely honored and referenced throughout the plan, tasks, and itineraries.
    - Tailored dietary preferences: Pure Vegetarian, dedicated Jain counters, live Chaat stalls, multi-cuisine banquets, and traditional Mithai bars.
    - City context (Jaipur, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Kolkata, Pune, Goa, etc.).
 
@@ -45,9 +47,9 @@ UtsavMate AI helps hosts, families, and community organizers plan Indian wedding
    - Export and import JSON backups anytime.
 
 9. **Instant Demo Presets**:
-   - 👑 **Royal Jaipur Wedding**: 350 Guests, ₹35,00,000 (Haveli, Baraat, Pheras)
-   - 🎂 **1st Birthday & Annaprashan**: 80 Guests, ₹2,50,000 (Pastel Safari, Magic Show, Dosa Brunch)
-   - 🪔 **Diwali Milan Community Utsav**: 200 Guests, ₹6,00,000 (1001 Diyas, Rangoli, Satvik Feast)
+   - 👑 **Royal Jaipur Wedding**: 350 Guests, ₹35,00,000 (Ananya & Rohan)
+   - 🎂 **1st Birthday & Annaprashan**: 80 Guests, ₹2,50,000 (Aarav)
+   - 🪔 **Diwali Milan Community Utsav**: 200 Guests, ₹6,00,000 (Gokuldham Society)
 
 > *Notice: Sample costs are calibrated planning estimates based on Indian city market averages, not live binding vendor quotes.*
 
@@ -106,8 +108,10 @@ The Gemini API key is **never exposed to client-side JavaScript**. All AI genera
    GEMINI_MODEL=gemini-2.5-flash
    ```
 
+> **Important**: Whenever you add or update your `GEMINI_API_KEY` in `.env.local`, restart your local Next.js server (`npm run dev`) so the new environment variables take effect.
+
 ### Resilient Demo / Offline Fallback Mode
-If `GEMINI_API_KEY` is not provided or if the API experiences rate limits/quota exhaustion, UtsavMate AI **automatically and gracefully activates its Offline Intelligence Fallback Engine**. It synthesizes customized plans and realistic INR budget breakdowns based on the user's exact inputs without failing.
+If `GEMINI_API_KEY` is not provided or if the API experiences rate limits/quota exhaustion, UtsavMate AI **automatically and gracefully activates its Offline Intelligence Fallback Engine**. It synthesizes customized plans and realistic INR budget breakdowns based on the user's exact inputs (including dynamic celebrant/host name substitution) without failing.
 
 ---
 
@@ -116,9 +120,12 @@ If `GEMINI_API_KEY` is not provided or if the API experiences rate limits/quota 
 ### Prerequisites
 - Node.js 18.x or newer (Tested on Node v20+ / v26)
 - npm or yarn
+- Git
 
-### 1. Install Dependencies
+### 1. Clone & Install Dependencies
 ```bash
+git clone https://github.com/praveen4zenith/promptwars-utsavmate.git
+cd promptwars-utsavmate
 npm install
 ```
 
@@ -132,7 +139,7 @@ Runs 11 Vitest tests covering:
 - Bounds checking and negative number prevention
 - Exact sum reconciliation
 - Indian Rupee comma formatting (`₹15,00,000` / `₹1.5 Lakh`)
-- Input validation rules
+- Form input validation rules (including host/celebrant validation)
 
 ### 3. Start Development Server
 ```bash
@@ -152,20 +159,16 @@ npm start
 
 This application is built with standard Next.js App Router, making it 100% zero-config compatible with Vercel:
 
-1. Push your code to GitHub:
+1. Push your repository to GitHub:
    ```bash
-   git init
-   git add .
-   git commit -m "feat: UtsavMate AI celebration planner"
-   git remote add origin https://github.com/<your-username>/utsavmate-ai.git
-   git push -u origin main
+   git push origin main
    ```
 2. Log in to [Vercel](https://vercel.com) and click **"Add New Project"**.
-3. Import your `utsavmate-ai` repository.
+3. Import your `promptwars-utsavmate` repository.
 4. In the **Environment Variables** section, add:
-   - `GEMINI_API_KEY`: Your Gemini API key
-   - `GEMINI_MODEL`: `gemini-2.5-flash` (optional)
-5. Click **Deploy**. Vercel will automatically build the Next.js app and serve it on a global edge network.
+   - `GEMINI_API_KEY`: Your Gemini API key from Google AI Studio
+   - `GEMINI_MODEL`: `gemini-2.5-flash` *(optional)*
+5. Click **Deploy**. Vercel will automatically build the Next.js app and serve it globally.
 
 ---
 
@@ -193,7 +196,7 @@ UtsavMateAI/
 │   │           └── route.ts  # Contextual AI budget savings endpoint
 │   ├── components/
 │   │   ├── Navbar.tsx        # Top navigation, presets, export & print
-│   │   ├── EventForm.tsx     # Celebration form with validation & presets
+│   │   ├── EventForm.tsx     # Celebration form with host/celebrant field, validation & presets
 │   │   ├── BudgetDashboard.tsx # Deterministic budget arithmetic & overruns
 │   │   ├── SavingsTipsModal.tsx# AI savings recommendations modal
 │   │   ├── TaskList.tsx      # Interactive task checklist with filters
@@ -202,10 +205,10 @@ UtsavMateAI/
 │   │   ├── ContingencyCard.tsx# Rain, generator & guest surge protocols
 │   │   └── PrintSummary.tsx  # Print-ready executive event brief
 │   ├── lib/
-│   │   ├── types.ts          # Complete TypeScript interfaces
+│   │   ├── types.ts          # Complete TypeScript interfaces (EventFormData with hostName)
 │   │   ├── budgetEngine.ts   # Pure deterministic math & validation logic
 │   │   ├── presets.ts        # Realistic Wedding, Birthday & Community presets
-│   │   ├── gemini.ts         # Server-side Gemini API client & fallback engine
+│   │   ├── gemini.ts         # Server-side Gemini API client & dynamic fallback engine
 │   │   └── storage.ts        # LocalStorage helpers with type safety
 │   └── __tests__/
 │       ├── budgetEngine.test.ts # Budget math, overruns, and formatting tests
